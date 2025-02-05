@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>d-day</title>
+    <script src="dday.js"></script>
+    <script>
+        console.log(fn_dday('2025-01-21',100));
+        function fn_change() {
+            let dday = document.getElementById('dday').value;
+            let day = document.getElementById('day').value;
+            let userDday = fn_dday(dday, parseInt(day));
+            let a = new Array("일요일", "월요일", "화요일", "수요일", "목요일", 
+                                "금요일", "토요일" );
+            console.log(userDday);
+            let b = new Date(userDday);
+            let idx = b.getDay();
+            let dayOfWeek = a[idx];
+            // 사용자가 입력한 dday, day 기준으로 날짜를 view에 출력하시오
+            document.getElementById('view').innerHTML =
+            `${dday} 로 부터 <br>${day}일 기념일은 <br> ${userDday}{${dayOfWeek}} 입니다.`;
+            // Date 객체의 getDay() 메소드는 0 ~ 6 (요일 정보를 리턴)
+            // 0은 일요일, 1은 월요일 ....
+            // 1. 요일 배열을 만들고
+            // 2. userDay의 요일 정보를 구하여 뒤 출력에 요일도 출력하시오.
+        }
+       
+    </script>
+</head>
+<body>
+    <h2>기념일 계산기</h2>
+    <form action="#">
+        <label for="">기념일</label>
+        <input type="date" id="dday">
+        <input type="text" id="day" placeholder="몇일뒤?">
+        <input type="button" value="계산" onclick="fn_change()">
+    </form>
+    <div id="view">계산 결과! </div>
+    
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function fn_setClock(){
+            let now = new Date();
+            let HH = now.getHours();
+            let MM = now.getMinutes();
+            let SS = now.getSeconds();
+            let clock = String(now.getSeconds()).padStart(2, '0');
+            let month = String(now.getMonth()+1).padStart(2, '0');
+    //         let  = String(dDate.getMonth()+1).padStart(2, '0');
+    // let day = String(dDate.getDate()).padStart(2, '0');
+            document.getElementById("time").innerHTML = 
+                `${HH}:${MM}:${clock}`;
+            let YYYY = now.getFullYear();
+            let mm = now.getMonth()+1;
+            let DD = now.getDate();
+            document.getElementById("date").innerHTML =
+                `${YYYY}년${month}월${DD}일`;
+            //------ 오늘의 문제 -------
+            //date 쪽은 YYYY년 MM월 DD일 
+            //time 쪽은 HH:MM:DD  로 출력하시오 
+            //만약 1월이라면 01로 출력, 1초라면 01로 출력
+        } 
+        setInterval(fn_setClock, 1000);  // 1초 후마다 출력
+    </script>
+    <style>
+        /* *은 전체 */
+        * { text-align: center; position: relative; top: 50px;}    
+        body {background-color: black;}
+        #date{ font-size: 30px; color: blue;}
+        #time{font-size: 40px; color: purple;}
+        h3{color: whitesmoke;}
+        </style>
+</head>
+<body>
+    <h3>메인화면</h3>
+    <div id="time">16:13:01</div>
+    <div id="date">2025년 02월 05일</div>
+</body>
+</html>
