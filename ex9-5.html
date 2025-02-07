@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트와 이벤트 객체</title>
+    <script>
+        function fn_init() {
+            let p = document.getElementById('p_id');
+            // 이벤트 등록 2. 이벤트 리스너 프로퍼티에 들옥옥
+            p.onmouseover = fn_msg;    // dom객체 이벤트 리스터 프로퍼티에 메소드 등록
+                                        // 첫번재 매개변수는 default로 event객체;
+            p.onmousemove = fn_msg;
+        }
+        // 이벤트 등록 3번째 addEventListener('이벤트명', 적용함수, boolrean[bubble,capture])
+        document.addEventListener('contextmenu', function(event) {
+            console.log(event);          // contextmenu 마우스 우클릭시 메뉴 나오는
+ //           event.preventDefault();   // 디폴트 행동 멈춤 (오른쪽 클릭하면 나오는 메뉴 없애는 거)
+        },true);   // default flase(bubble 단계) true(capture 단계)
+        function fn_msg(e) {
+            console.log(e);
+            console.log(e.type, e.x, e.y);
+            let view = document.getElementById('view');
+            // screenX 사용자 전체 화면(모니터기준)
+            // offsetX,y 이벤트 발생 요소(element) 기준 좌표표
+            let str = `(screenX, y)=${e.screenX},${e.screenY} <br>`;
+                str += `(offsetX, y)=${e.offsetX},${e.offsetY} <br>`;
+            view.innerHTML = str;
+        }
+    </script>
+</head>
+<!-- 이벤트 리스너 등록 1.element에 등록록 -->
+<body onload="fn_init()">
+    <p id="p_id">마우스를 올려보세요</p>
+    <button type="button" onclick="fn_msg(event)">클릭!</button>
+    <div id="view" style="width: 250px;"></div>
+</body>
+</html>
