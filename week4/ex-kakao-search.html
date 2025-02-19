@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>다음 웹 검색</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script>
+        const API_KEY = 'b5c1346ca1c9b515f348d748c3e8ae77'
+        $(document).ready(function() {
+            $("#btn").click(function() {
+                // let sample = "grok3";
+                let searchText = document.getElementById("search").value;
+                let sizeText = Number(document.getElementById("size").value);
+                let pageText = document.getElementById("page").value;
+                let contentText = document.getElementById("content");
+                // let linkText = document.getElementById("link");
+                // let page = 1;
+
+                console.log(searchText);  // 확인용
+
+                // linkText.innerHTML = searchText.value;
+                
+                $.ajax({
+                    url: "https://dapi.kakao.com/v2/search/web"
+                    ,type : "GET"
+                    ,data : {"query": searchText
+                    ,"page": pageText
+                    ,"size": sizeText
+                }
+                ,headers: {"Authorization": "KakaoAK "+API_KEY}
+                ,success: function(res) {
+                    // 1. 검색 결과 배열 가져오기 (이전 요소가 결과가 있다면 비우기)
+                    let arr = res['documents'];
+                    // 2. 반복해서 검색결과의 각 요소에 접근
+                    // 3. 각 요소의 key로 원하는 value 가져오기
+                    // 4. title, url, contents 를 원하는 태그로 감싸주고
+                    // 5. content div에 append
+
+                    for(i = 0; i < arr.length; i++) {
+                        console.log(arr[i]['title']);
+                    }
+
+                    for(i = 0; i < arr.length; i++) {
+                        console.log(arr[i]['contents']);
+                    }
+                    for(i = 0; i < arr.length; i++) {
+                        console.log(arr[i]['url']);
+                    } 
+                    
+
+                    console.log(res);
+                }
+                ,error: function(err){
+                    console.log(err);
+                }
+            })
+        });
+    });
+    </script>
+</head>
+<body>
+    <div id="search-main">
+        <input type="text" id="search" placeholder="검색어를 입력하세요">
+        page:<input type="number" id="page">
+        size:<input type="range" min="1" max="50" id="size"><br>
+        <button type="button" id="btn">검색</button>
+    </div>
+    <div id="content">
+        <span id="title">title</span>
+        <span id="contents">contents</span>
+        <a href="" id="url">바로가기</a>
+    </div>
+</body>
+</html>
